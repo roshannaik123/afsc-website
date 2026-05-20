@@ -100,69 +100,19 @@ export function Products() {
               </div>
             </div>
 
-            {/* Right: Flipkart Desktop Sort Tabs & Mobile Buttons */}
-            <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 pt-3 md:pt-0 border-gray-100">
-              {/* Mobile Filter Button */}
-              <button
-                onClick={() => setIsMobileFilterOpen(true)}
-                className="lg:hidden flex items-center gap-2 bg-gray-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase shadow-sm"
-              >
-                <Filter size={14} />
-                <span>Filters</span>
-                {activeFilterCount > 0 && (
-                  <span className="bg-[#89a039] text-white text-[10px] px-1.5 py-0.5 rounded-full font-black">
-                    {activeFilterCount}
-                  </span>
-                )}
-              </button>
-
-              {/* Desktop Flipkart Sort Tabs */}
-              <div className="hidden xl:flex items-center gap-6 text-xs">
-                <span className="font-black text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <SlidersHorizontal size={14} /> Sort By:
+            {/* Right: Mobile Filter Button */}
+            <button
+              onClick={() => setIsMobileFilterOpen(true)}
+              className="lg:hidden flex items-center gap-2 bg-gray-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase shadow-sm"
+            >
+              <Filter size={14} />
+              <span>Filters</span>
+              {activeFilterCount > 0 && (
+                <span className="bg-[#89a039] text-white text-[10px] px-1.5 py-0.5 rounded-full font-black">
+                  {activeFilterCount}
                 </span>
-                {[
-                  { label: "Relevance", value: "default" },
-                  { label: "Price -- Low to High", value: "price-low" },
-                  { label: "Price -- High to Low", value: "price-high" },
-                  { label: "Top Rated", value: "rating" },
-                  { label: "Biggest Discount", value: "discount" },
-                ].map((tab) => {
-                  const isActive = sortBy === tab.value;
-                  return (
-                    <button
-                      key={tab.value}
-                      onClick={() => setSortBy(tab.value)}
-                      className={`font-bold transition-colors py-1 relative cursor-pointer outline-none ${
-                        isActive
-                          ? "text-[#89a039] border-b-2 border-[#89a039]"
-                          : "text-gray-600 hover:text-gray-900"
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Mobile & Tablet Sort Dropdown */}
-              <div className="xl:hidden flex items-center gap-2">
-                <span className="text-xs font-black text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <SlidersHorizontal size={14} />
-                </span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-gray-50 border border-gray-200 py-2.5 px-3 pr-8 rounded-xl text-xs font-bold text-gray-800 focus:ring-2 focus:ring-[#89a039] cursor-pointer outline-none"
-                >
-                  <option value="default">Relevance</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Top Rated</option>
-                  <option value="discount">Biggest Discount</option>
-                </select>
-              </div>
-            </div>
+              )}
+            </button>
           </div>
 
           {/* Loading Initial State */}

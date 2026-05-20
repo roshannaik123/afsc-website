@@ -1,10 +1,13 @@
-
 import { motion } from "motion/react";
-import { Star, Eye, ArrowRight } from "lucide-react";
+import { Eye, ArrowRight } from "lucide-react";
 
 export function ProductCard({ product, onViewDetails, noImageUrl }) {
-  const originalPrice = (product.price / (1 - product.discountPercentage / 100)).toFixed(2);
-
+  const originalPrice = (
+    product.price /
+    (1 - product.discountPercentage / 100)
+  ).toFixed(2);
+  console.log("ProductCard Rendered:", product);
+  const isNonVeg = product.vegStatus?.toLowerCase().includes("non");
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -44,7 +47,20 @@ export function ProductCard({ product, onViewDetails, noImageUrl }) {
             {product.category}
           </span>
         )}
-        
+
+        {/* {product.vegStatus && (
+          <div
+            className={`absolute bottom-3 right-3 w-6 h-6 flex items-center justify-center text-xs font-black border-2
+      ${
+        isNonVeg
+          ? "bg-red-100 border-red-500 text-red-600"
+          : "bg-green-100 border-green-500 text-green-600"
+      }`}
+          >
+            {isNonVeg ? "]" : "["}
+          </div>
+        )} */}
+
         {/* Hover Eye Overlay */}
         <div className="absolute inset-0 bg-gray-900/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 backdrop-blur-[2px]">
           <button
@@ -66,16 +82,27 @@ export function ProductCard({ product, onViewDetails, noImageUrl }) {
           ) : (
             <span />
           )}
-          <div className="flex items-center text-amber-500 text-xs font-bold gap-0.5">
-            <Star size={12} fill="currentColor" />
-            <span>{product.rating}</span>
-          </div>
+          {product.vegStatus && (
+            <div
+              className={`flex items-center justify-center border-l-2 border-r-2 border-t-2 border-b-2 px-2 py-1 text-xs font-black gap-1 ${
+                isNonVeg
+                  ? "border-red-600 text-red-600"
+                  : "border-green-600 text-green-600"
+              }`}
+            >
+              <div
+                className={`w-2 h-2 rounded-full ${
+                  isNonVeg ? "bg-red-600" : "bg-green-600"
+                }`}
+              />
+            </div>
+          )}
         </div>
 
         <h3 className="text-gray-950 font-bold text-base line-clamp-1 mb-2 group-hover:text-[#89a039] transition-colors">
           {product.title}
         </h3>
-        
+
         <p className="text-gray-500 text-xs leading-relaxed line-clamp-2 mb-6 flex-1">
           {product.description}
         </p>
@@ -86,11 +113,11 @@ export function ProductCard({ product, onViewDetails, noImageUrl }) {
               <>
                 {product.discountPercentage > 5 && (
                   <span className="text-gray-400 text-[10px] line-through font-medium">
-                    ${originalPrice}
+                    ₹{originalPrice}
                   </span>
                 )}
                 <span className="text-gray-900 font-extrabold text-lg leading-tight">
-                  ${product.price.toFixed(2)}
+                  ₹ {product.price.toFixed(2)}
                 </span>
               </>
             )}

@@ -1,9 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, Phone, MapPin, Star } from "lucide-react";
+import toast from "react-hot-toast";
 import heroImg from "../assets/contact-banner.png";
-
+import axiosInstance from "../api/axiosInstance";
 export function ContactUs() {
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    userName: "",
+    userEmail: "",
+    userMobile: "",
+    userMessage: "",
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // ✅ frontend validation ONLY
+
+    try {
+      setLoading(true);
+
+      const response = await axiosInstance.post("/create-webenquiry", {
+        userName: formData.userName,
+        userEmail: formData.userEmail,
+        userMobile: formData.userMobile,
+        userMessage: formData.userMessage,
+      });
+
+      console.log("Success:", response.data);
+
+      toast.success("Message sent successfully!");
+
+      // reset form
+      setFormData({
+        userName: "",
+        userEmail: "",
+        userMobile: "",
+        userMessage: "",
+      });
+    } catch (error) {
+      console.error("Error:", error?.response?.data || error.message);
+      toast.error("Failed to send message. Please try again later.");
+
+      // ✅ proper backend error handling
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section className="relative bg-white" id="contact">
       {/* Banner */}
@@ -153,7 +204,7 @@ export function ContactUs() {
             <h3 className="text-2xl font-black text-gray-900 font-[Playfair_Display] mb-8">
               Leave Message
             </h3>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="fullName"
@@ -163,7 +214,10 @@ export function ContactUs() {
                 </label>
                 <input
                   type="text"
-                  id="fullName"
+                  id="userName"
+                  required
+                  value={formData.userName}
+                  onChange={handleChange}
                   className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#89a039] focus:ring-1 focus:ring-[#89a039] transition-all text-sm"
                   placeholder="John Doe"
                 />
@@ -178,7 +232,10 @@ export function ContactUs() {
                 </label>
                 <input
                   type="tel"
-                  id="mobile"
+                  id="userMobile"
+                  required
+                  value={formData.userMobile}
+                  onChange={handleChange}
                   className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#89a039] focus:ring-1 focus:ring-[#89a039] transition-all text-sm"
                   placeholder="+91 XXXXX XXXXX"
                 />
@@ -193,7 +250,10 @@ export function ContactUs() {
                 </label>
                 <input
                   type="email"
-                  id="email"
+                  id="userEmail"
+                  required
+                  value={formData.userEmail}
+                  onChange={handleChange}
                   className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#89a039] focus:ring-1 focus:ring-[#89a039] transition-all text-sm"
                   placeholder="john@example.com"
                 />
@@ -207,8 +267,11 @@ export function ContactUs() {
                   Message
                 </label>
                 <textarea
-                  id="message"
+                  id="userMessage"
                   rows="4"
+                  required
+                  value={formData.userMessage}
+                  onChange={handleChange}
                   className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#89a039] focus:ring-1 focus:ring-[#89a039] transition-all text-sm resize-none"
                   placeholder="How can we help you?"
                 ></textarea>

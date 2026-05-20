@@ -1,10 +1,15 @@
 import React from "react";
 import { motion } from "motion/react";
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-
+import { Mail, Phone, MapPin, ArrowUpRight, Link } from "lucide-react";
+import { Link as RouterLink } from "react-router-dom";
 export function Footer() {
   const currentYear = new Date().getFullYear();
-
+  const navItems = [
+    { label: "Home", path: "/" },
+    { label: "About Us", path: "/about-us" },
+    { label: "Products", path: "/products" },
+    { label: "Cooperation", path: "/cooperation" },
+  ];
   return (
     <footer className="bg-gray-950 text-white pt-24 pb-12 overflow-hidden relative">
       {/* Background Accent */}
@@ -72,22 +77,20 @@ export function Footer() {
               Navigation
             </h4>
             <ul className="space-y-4">
-              {["About Us", "Our Products", "Clientele", "Supply Chain"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-white transition-colors text-sm flex items-center group"
-                    >
-                      <span>{item}</span>
-                      <ArrowUpRight
-                        size={14}
-                        className="ml-1 opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 transition-all"
-                      />
-                    </a>
-                  </li>
-                ),
-              )}
+              {navItems.map((item) => (
+                <li key={item.path}>
+                  <RouterLink
+                    to={item.path}
+                    className="text-gray-400 hover:text-white transition-colors text-sm flex items-center group"
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight
+                      size={14}
+                      className="ml-1 opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 transition-all"
+                    />
+                  </RouterLink>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -105,7 +108,8 @@ export function Footer() {
                   <p className="text-gray-500 font-bold uppercase text-[10px] tracking-widest mb-1">
                     Call Us
                   </p>
-                  <p className="text-gray-300 font-medium">+91 98765 43210</p>
+                  <p className="text-gray-300 font-medium">+91 8861999800</p>
+                  <p className="text-gray-300 font-medium">+91 9008133113</p>
                 </div>
               </li>
               <li className="flex items-start space-x-4">
@@ -117,7 +121,7 @@ export function Footer() {
                     Email Us
                   </p>
                   <p className="text-gray-300 font-medium">
-                    contact@adityafoods.com
+                    info@adityafoodservices.com
                   </p>
                 </div>
               </li>
@@ -134,9 +138,17 @@ export function Footer() {
                 <MapPin size={16} />
               </div>
               <p className="text-sm text-gray-400 leading-relaxed">
-                123 Industrial Hub, <br />
-                Near Electronic City, <br />
-                Bangalore, KA 560100
+                Aditya Food Services Company,
+                <br />
+                Infront of COTTAGE LOAF STREET,
+                <br />
+                Byrathi Village, 46/4, Hobli,
+                <br />
+                near Shobha super market, Rammana Layout,
+                <br />
+                Kanakashree Layout, Bidarahalli,
+                <br />
+                Bengaluru, Karnataka 560077
               </p>
             </div>
           </div>

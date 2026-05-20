@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Loader2 } from "lucide-react";
 import "./App.css";
-
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
@@ -12,6 +11,7 @@ import { Products } from "./pages/Products";
 import { Cooperation } from "./pages/Cooperation";
 import { SeeAllClients } from "./pages/SeeAllClients";
 import { SeeAllBrands } from "./pages/SeeAllBrands";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [initialLoad, setInitialLoad] = useState(true);
@@ -26,6 +26,16 @@ function App() {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: "#111827",
+            color: "#fff",
+            borderLeft: "4px solid #89a039",
+          },
+        }}
+      />
       <AnimatePresence>
         {initialLoad && (
           <motion.div
@@ -66,6 +76,7 @@ function App() {
 
       <div className="min-h-screen bg-white">
         <Header />
+
         <Routes>
           <Route
             path="/"
