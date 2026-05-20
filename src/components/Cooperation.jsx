@@ -325,7 +325,10 @@ export function Cooperation() {
 
             <motion.button
               whileHover={{ scale: 1.05, backgroundColor: "#89a039" }}
-              onClick={() => navigate("/contact-us")}
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate("/contact-us");
+              }}
               className="group flex items-center space-x-4 bg-white text-gray-900 px-10 py-5 rounded-full font-bold text-xs tracking-widest transition-all shadow-xl hover:text-white flex-shrink-0"
             >
               <span>DISCUSS COOPERATION</span>
@@ -465,7 +468,10 @@ export function Cooperation() {
                       All products fully compliant with FSSAI standards.
                     </p>
                     <button
-                      onClick={() => navigate("/contact-us")}
+                      onClick={() => {
+                        window.scrollTo(0, 0);
+                        navigate("/contact-us");
+                      }}
                       className="flex items-center space-x-2 bg-gray-950 text-white px-5 py-3 rounded-full font-bold text-[10px] tracking-wider hover:bg-[#89a039] transition-all duration-300"
                     >
                       <span>SEND BULK INQUIRY</span>
